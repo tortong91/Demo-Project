@@ -1,0 +1,63 @@
+@(myShow:List[Inputfood])
+<html>
+    <head>
+        <title>
+            ข้อมูลการรับอาหาร
+        </title>
+    </head>
+    <body>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-success">
+            <div class="panel-heading"> <span class="glyphicon glyphicon-folder-open"> ข้อมูลรับอาหาร</span> </div>
+            <div class="panel-body">
+
+
+                <h1>ข้อมูลรับอาหาร</h1>
+                <p style="color: red;">**แสดงข้อมูลการรับอาหารเ</p>
+               <table  align="center" class="table">
+                    <thead>
+                        <tr>
+
+                            <th>ชื่ออาหาร</th>
+                            <th>ราคา</th>
+                            <th>จำนวน</th>
+                            <th>วันที่หมดอายุ</th>
+                            <th>อาหารประเภท</th>
+                            <th>รูปภาพประกอบ</th>
+
+                            <th>จัดการ</th>
+                        </tr>  @for(s <- myShow){
+                        <tr>
+                            <td >@s.getName_ifoods</td>
+                            <td >@s.getPrice_ifoods</td>
+                            <td >@s.getAmount_ifoods Kg.</td>
+                            <td >@s.getDate_ifoods</td>
+                            <td >@s.getInputfoods.getAnimalfoods_name</td>
+
+                            <td><img src="/assets/images/Pic/@s.getPicture" width="100px"> </td>
+                            <td align="center">
+                                <a href="/editinputfoods/@s.getId_ifoods"><button class="btn btn-success">
+                                    <span class="glyphicon glyphicon-cog"></span>
+                                </button></a>
+                                <a href="/deleteinputfoods/@s.getId_ifoods" onclick="return confirm('Delete')">
+                                    <button class="btn btn-danger">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </button>
+                                </a>
+
+                            </td>
+                        </tr>
+                    </thead>
+                    }
+                </table>
+
+            </div>
+        </div>
+</div>
+
+
+
+    </body>
+</html>

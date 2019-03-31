@@ -1,0 +1,70 @@
+@(myForm1:Form[Foods])
+@import helper._;
+<html>
+    <head>
+        <title>
+            ระบบจัดการข้อมูลโคขุน
+        </title>
+        <link href="/assets/images/cow.png" type="image/png" rel="icon">
+        <link href="/assets/stylesheets/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+        <style type="text/css">
+
+                .header{
+
+                    background-color: #1b6d85;
+                }
+                a{
+                    color: white;
+                }
+                footer{
+                    height: 40px;
+                    background-color: #222222; color: #faf2cc;
+                    padding: 10px;
+
+                }
+                li a{
+                    color: #204d74;
+                }
+                h3{
+                    align-items: center;
+                    margin: 0 auto;
+                }
+
+        </style>
+    </head>
+    <body style="margin: 0 auto;">
+        @if(flash.containsKey("Error")){
+        <div class="alert alert-danger">
+            <strong>เกิดข้อผิดพลาด</strong>@flash.get("Error").
+        </div>
+    }
+
+        <div class="container">
+            <div class="row">
+
+
+                    <div class="col-md-8">
+                        <ol class="breadcrumb">
+                            <li><a href="/">หน้าหลัก</a></li>
+                            <li><a href="/showfoods">ข้อมูลอาหารสัตว์</a></li>
+                            <li class="active">เพิ่มอาหารสัตว์</li>
+
+                        </ol><table align="center">
+                        <h1>รแก้ไขการรับอาหารสัตว์</h1>
+                        <p style="color: red;">**แก้ไขข้อมูลการรับอาหารสัตว์</p>
+                        @helper.form(action = routes.Application.updatefoods1() ,'enctype->"multipart/form-data"){
+                            @inputText(myForm1("Animalfoods_name"),'_label->"ชื่ออาหารสัตว์ ",'size->"60",'maxlength->"50",'required->"required")
+                            @textarea(myForm1("details"),'_label->"ลักษณะของอาหาร",'rows->"10",'cols->"40",'required->"required")
+                            @inputText(myForm1("Animalfoods_amount"),'_label->"จำนวน",'size->"60",'maxlength->"50",'required->"required")
+                            @inputText(myForm1("Animalfoods_price"),'_label->"ราคา/หน่วย",'size->"60",'maxlength->"50",'required->"required")
+                            @inputRadioGroup(myForm1("Animalfoods_unit"),options = Seq("กรัม"->"กรัม","กิโลกรัม"->"กิโลกรัม"),'_label->"หน่วยนับ")
+                            @inputFile(myForm1("picture"),'_label->"รูปภาพประกอบ")
+                            <input type="submit" value="บันทึก" class="btn-success">
+                            <input type="reset" value="ลบข้อมูล" class="btn-danger">
+                            }</table>
+
+                    </div>
+</div>
+        </div>
+    </body>
+</html>

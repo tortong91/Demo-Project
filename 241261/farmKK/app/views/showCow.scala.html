@@ -1,0 +1,119 @@
+@(show:List[Cows])
+@import helper._;
+<html>
+    <head>
+        <title>ข้อมูลโคขุน</title>
+        <style type="text/css">
+
+        </style>
+    </head>
+    <body style="background-color: seashell;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+    <!---->
+
+
+                    @*<center><b style="font-size: 13pt;">ค้นหาตามหมายเลขโคขุน  <form method="post" action="/two">*@
+
+
+                        @*<input type="text" name="search" width="100">*@
+                        @*<input type="submit" value="ค้นหา" class="btn-success">*@
+
+                    @*</form></b></center>*@
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-success">
+                                <div class="panel-heading">
+                            <ol class="breadcrumb">
+                                <li><a href="/">หน้าหลัก</a></li>
+                                <li><a href="/showcow">ข้อมูลโคขุน</a></li>
+                                <li class="active">รับโคขุน</li>
+                            </ol>
+                            <h1>รับโคขุนเข้าฟาร์ม</h1>
+                            <p style="color: red;">**เป็นการที่เจ้าของฟาร์มใช้กรอกข้อมูลโคขุนที่ได้ซื้อโคขุนเข้ามาภายในฟาร์ม กรอกแล้วข้อมูลจะส่งไปที่ข้อมูลพื้นฐานในส่วนของ "ข้อมูลโคขุน" ครับ</p>
+                            @if(flash.containsKey("Errorcow")){
+                                <div class="alert alert-danger">
+                                    <strong>เกิดข้อผิดพลาด</strong> @flash.get("Errorcow")
+                                </div>
+                            }
+
+
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <span class="glyphicon glyphicon-hand-down"></span>  | โคขุนหนองแวง
+                        </div>
+                        <div class="panel-body">
+
+                    <table  align="center">
+                        <tr>
+                            <th width="150">ค้นหาตามสายพันธุ์</th>
+                            <th style="padding-right:5px; "><a href="/check/1" >วากิว |</a></th>
+                            <th style="padding-right:5px; "><a href="/check/2" >แองกัส |</a></th>
+                            <th style="padding-right:5px; "><a href="/check/3" >บรามัน |</a></th>
+                            <th style="padding-right:5px; "><a href="/check/4" >ชาราเล่ |</a></th>
+
+                        </tr>
+                    </table>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>โคขุนหมายเลข</th>
+                    <th>น้ำหนัก</th>
+                    <th>อายุโคขุน</th>
+                    <th>เพศ</th>
+                    <th>นำเข้าโคขุนเมื่อ</th>
+                    <th>สายพันธุ์</th>
+
+                </tr>
+            </thead>
+            <tbody>
+            @for(s <- show){
+                @if(s.getStatus=="ได้รับโคขุนแล้ว ✓"){
+                <tr class="panel-info"><td>@s.getCow_id</td>
+                <td>@s.getWeight Kg.</td>
+                <td>@s.getAge ปี</td>
+                <td>@s.getSex</td>
+                <td>@s.getDate</td>
+                <td>@s.getBreed.getName</td>
+                    }else{
+                    <tr bgcolor="#f08080"><td>@s.getCow_id</td>
+                        <td>@s.getWeight Kg.</td>
+                        <td>@s.getAge ปี</td>
+                        <td>@s.getSex</td>
+                        <td>@s.getDate</td>
+                        <td>@s.getBreed.getName</td>
+                }
+                <td><img src="/assets/images/Piccow/@s.getPicture" class="img-thumbnail" width="100px" height="auto" ></td>
+               @if(session.get("position")=="Admin") {
+                   <td align="center">
+                       <a href="/editcow/@s.getCow_id"><span class="glyphicon glyphicon-pencil" style="color: #5e5e5e;"></span></a>
+                       <a href="/deletecow/@s.getCow_id" onclick="return confirm('Delete')"> <span class="glyphicon glyphicon-remove" style="color: #c12e2a;"></span></a>
+                       <a href="/detailsCow/@s.getCow_id"> <span class="" style="color: #c12e2a;"></span>Views</a>
+                   </td>
+                   @if(session.get("position")=="Webmaster"){
+                       <td align="center">
+                           <a href="/editcow/@s.getCow_id"><span class="glyphicon glyphicon-pencil" style="color: #5e5e5e;"></span></a>
+                           <a href="/deletecow/@s.getCow_id" onclick="return confirm('Delete')"> <span class="glyphicon glyphicon-remove" style="color: #c12e2a;"></span></a>
+                           <a href="/detailsCow/@s.getCow_id"> <span class="" style="color: #c12e2a;"></span>Views</a>
+                       </td>
+                   }
+               }else{
+                   <div class="alert alert-danger"><strong>สามารถดูข้อมูลได้อย่างเดียว ไม่สามารถทำการเพิ่มลบแก้ไขได้ เนื่องจากท่านยังไม่ได้ทำการ "เข้าสู่ระบบ" ครับ </strong></div>
+               }
+            </tr>}
+            </tbody>
+        </table>
+
+
+
+
+                </div>
+            </div>
+        </div>
+
+            </div>
+        </div>
+    </body>
+</html>
+

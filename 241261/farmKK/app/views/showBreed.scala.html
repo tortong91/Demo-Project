@@ -1,0 +1,101 @@
+@(show: List[breeds],myForm:Form[breeds])
+@import helper._;
+<html>
+    <head>
+        <title>
+            ระบบจัดการข้อมูลวัคซีน
+        </title>
+
+    </head>
+    <body style="margin: 0 auto;">
+<!---->
+
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                <ol class="breadcrumb">
+                    <li><a href="/">หน้าหลัก</a></li>
+                    <li><a href="/showbreeds">ข้อมูลสายพันธุ์โคขุน"></a></li>
+                    <li class="active">เพิ่มสายพันธุ์โคขุน</li>
+                </ol>
+                <H1>สายพันธุ์โคขุน</H1>
+                <p style="color:red;">**เพิ่มสายพันธ์ุโคขุน เพื่อที่ฟอร์ม "รับโคขุน" จะได้มีข้อมูลสายพันธุ์ ไว้เพิ่มข้อมูลลงในฐานข้อมูลของข้อมูลโคขุนได้</p>
+                @if(flash.containsKey("Errorbreeds")){
+                    <div class="alert alert-danger">
+                        <strong>เกิดข้อผิดพลาด</strong> @flash.get("Errorbreeds")
+                    </div>
+                }
+                @helper.form(action = routes.breedController.input() ,'enctype->"multipart/form-data"){
+                    @inputText(myForm("id"),'_label->"รหัสสายพันธุ์",'maxlength->"50",'required->"required",'class->"form-control")
+                    @inputText(myForm("name"),'_label->"ชื่อสายพันธุ์ ",'maxlength->"50",'required->"required",'class->"form-control")
+
+                    @inputFile(myForm("picture"),'_label->"ภาพตัวอย่างสายพันธุ์",'class->"form-control")
+                    <input type="submit" value="บันทึก" class="btn-success btn-lg">
+                    <input type="reset" value="ลบข้อมูล" class="btn-danger btn-lg">
+                    }
+                </div>
+
+
+        </div>
+
+            </div>
+        </div>
+
+
+        <!---->
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                       <span class="glyphicon glyphicon-hand-down"></span> | สายพันธุ์โคขุน
+                    </div>
+                    <div class="panel-body">
+                        <center><table align="center" class="table">
+                            <thead>
+                                <tr>
+
+                                    <th>ชื่อสายพันธุ์โคขุน</th>
+
+                                    <th>ภาพตัวอย่างสายพันธุ์</th>
+                                    <th width="100px">จัดการ</th>
+                                </tr>  @for(s <- show) {
+                                <tr>
+                                    <td >@s.getName</td>
+
+                                    <td><img src="/assets/images/Pic/@s.getPicture" width="100px"> </td>
+                                    <td align="center">
+                                    @if(session.get("position") == "Admin") {
+                                        <a href="/editbreeds/@s.getId"><span class="glyphicon glyphicon-pencil" style="color: #5e5e5e;"></span></a>
+                                        <a href="/deletebreeds/@s.getId" onclick="return confirm('Delete')"> <span class="glyphicon glyphicon-remove" style="color: #c12e2a;"></span></a>
+                                    } else {
+                                        @if(session.get("position") == "Webmaster") {
+                                            <a href="/editbreeds/@s.getId"><span class="glyphicon glyphicon-pencil" style="color: #5e5e5e;"></span></a>
+                                            <a href="/deletebreeds/@s.getId" onclick="return confirm('Delete')"> <span class="glyphicon glyphicon-remove" style="color: #c12e2a;"></span></a>
+
+                                        } else {
+
+                                        }
+                                    }
+                                    </td>
+                                </tr>
+                            </thead>
+                            }
+                        </table>
+                        </center>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+</div>
+
+    </body>
+</html>

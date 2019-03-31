@@ -1,0 +1,121 @@
+@(myList:List[Recipe],myForm:Form[Recipe],myListFoods:List[Inputfood])
+@import helper._;
+<html>
+    <head>
+        <title>
+            อาหารโคขุน
+        </title>
+        <link href="/assets/images/cow.png" type="image/png" rel="icon">
+        <link href="/assets/stylesheets/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+
+        <!---->
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                <h2>สูตรอาหารโคขุน</h2>
+                <p style="color: red;">**เป็นขั้นตอนการดูสูตร รายละเอียตรสูตรต่างๆของอาหารโคขุน</p>
+                @helper.form(action = routes.RecipeController.input() ,'enctype->"multipart/form-data"){
+<div class="row">
+    <div class="col-md-5">
+        @inputText(myForm("rid"),'_label->"ชื่อสูตร" ,'class->"form-control",'placeholder->"ชื่อเรียกสูตร")
+        @inputRadioGroup(myForm("dateTimeRecipe"),options = Seq("ระยะเวลา 1-6 เดือน"->"ระยะเวลา 1-6 เดือน","ระยะเวลา 6-12 เดือน"->"ระยะเวลา 6-12 เดือน"),'_label->"ระยะเวลาการให้อาหาร")
+        @inputText(myForm("amountCow"),'_label->"จำนวนโคขุน/ตัว" ,'class->"form-control",'placeholder->"ปริมาณสำหรับโคขุน")
+    </div>
+    <div class="col-md-5">
+
+        @select(myForm("inputfood.id_ifoods"),options=myListFoods.map(fac=>fac.getId_ifoods->fac.getInputfoods.getAnimalfoods_name),'_label->"เลือกอาหารเพื่อจัดสูตร",'class->"form-control")
+        @select(myForm("inputfood1.id_ifoods"),options=myListFoods.map(fac=>fac.getId_ifoods->fac.getInputfoods.getAnimalfoods_name),'_label->"เลือกอาหารเพื่อจัดสูตร",'class->"form-control")
+        @select(myForm("inputfood2.id_ifoods"),options=myListFoods.map(fac=>fac.getId_ifoods->fac.getInputfoods.getAnimalfoods_name),'_label->"เลือกอาหารเพื่อจัดสูตร",'class->"form-control")
+        @select(myForm("inputfood3.id_ifoods"),options=myListFoods.map(fac=>fac.getId_ifoods->fac.getInputfoods.getAnimalfoods_name),'_label->"เลือกอาหารเพื่อจัดสูตร",'class->"form-control")
+
+    </div>
+    <div class="col-md-2">
+
+    @inputText(myForm("am1"),'_label->"จำนวน(กิโลกรัม)",'class->"form-control")
+    @inputText(myForm("am2"),'_label->"จำนวน(กิโลกรัม)",'class->"form-control")
+    @inputText(myForm("am3"),'_label->"จำนวน(กิโลกรัม)",'class->"form-control")
+    @inputText(myForm("am4"),'_label->"จำนวน(กิโลกรัม)",'class->"form-control")
+    </div>
+ <center>  <button type="submit"  class="btn btn-primary"><span class="glyphicon glyphicon-floppy-save"></span> บันทึก</button></center>
+</div>
+                </div>
+                </div>
+                </div>
+        </div>
+                    }
+
+                </div>
+        </div>
+        <!--\\-->
+
+<table class="" border="0">
+
+    <tr>
+
+    </tr>
+</table>
+        <!---->
+        <div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-success">
+            <div class="panel-heading"><span class="glyphicon glyphicon-eye-open"> สูตรอาหาร</span> </div>
+            <div class="panel-body">
+                @if(flash.containsKey("more")){
+                    <div class="alert alert-danger">
+                        <strong>เกิดข้อผิดพลาด </strong>&nbsp;flash.get("more").
+                    </div>
+                }
+        <table class="table">
+            @for(s<-myList){
+                <tr>
+                   <th>ชื่อสูตร</th>
+                   <th>วันที่จัดสูตร</th>
+                   <th>ระยะเวลาสุตรอาหาร</th>
+                   <th>จำนวนโค</th>
+                   <th>วัตถุดิบและการจัดสูตร</th>
+                </tr>
+                 <tr>
+                     <td>@s.getRid</td>
+                   <td>@s.getDateRecipe</td>
+                   <td>@s.getDateTimeRecipe</td>
+                   <td>สำหรับโค @s.getAmountCow ตัว</td>
+
+                   <td>
+                       @s.getInputfood.getInputfoods.getAnimalfoods_name  จำนวน @s.getAm1 กิโลกรัม. <br>
+                       @s.getInputfood1.getInputfoods.getAnimalfoods_name จำนวน @s.getAm2 กิโลกรัม.  <br>
+                       @s.getInputfood2.getInputfoods.getAnimalfoods_name จำนวน @s.getAm3 กิโลกรัม. <br>
+                       @if(s.getInputfood3.getAmount_ifoods==0){
+                       }else{  @s.getInputfood3.getInputfoods.getAnimalfoods_name จำนวน @s.getAm4 กิโลกรัม. <br>}
+
+                      <b><u style="color: #2aabd2;"> รวม @s.getTotal กิโลกรัม.</u></b>
+
+                   </td>
+                     <td>
+
+                         <a href="/deleteRecipe/@s.getRid"> <button class="btn btn-danger">
+                             <span class="glyphicon glyphicon-trash"></span>
+                         </button></a>
+
+                     </td>
+                </tr>
+
+            <tr>
+                <td colspan="3">
+
+                </td>
+            </tr>}
+        </table></div>
+    </div>
+</div>
+     <!--\\-->
+
+
+
+
+
+    </body>
+</html>

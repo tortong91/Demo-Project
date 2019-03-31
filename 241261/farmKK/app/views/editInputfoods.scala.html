@@ -1,0 +1,37 @@
+@(myForm1:Form[Inputfood],myList:List[Foods])
+@import helper._;
+<html>
+    <head>
+        <title>รับอาหาร</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+
+
+                <div class="col-md-8">
+                    <ol class="breadcrumb">
+                        <li><a href="/">หน้าหลัก</a></li>
+                        <li><a href="/showfoods">ข้อมูลอาหารสัตว์</a></li>
+                        <li class="active">เพิ่มอาหารสัตว์</li>
+
+                    </ol><table align="center">
+                    <h1>รับอาหารสัตว์</h1>
+                    <p style="color: red;">**เพิ่มข้อมูลนำเข้า / รับอาหารสัตว์ได้ที่แบบฟอร์มนี้ ให้ทำการเพิ่มหลังจากนำเข้าอาหารแล้ว</p>
+                    @helper.form(action = routes.inputfoodsController.updateinputfoods() ,'enctype->"multipart/form-data"){
+                        @inputText(myForm1("id_ifoods"),'_label->"รหัสชนิด",'size->"60",'placeholder->"กรอกข้อมูลรหัสอาหาร",'maxlength->"50",'required->"required",'class->"form-control")
+                        @select(myForm1("inputfoods.id"),options=myList.map(fac=>fac.getId->fac.getAnimalfoods_name),'class->"form-control",'_label->"เลือกชนิดของอาหาร")
+                        @inputText(myForm1("name_ifoods"),'_label->"ชื่อชนิดอาหารสัตว์ ",'placeholder->"กรอกข้อมูลชื่ออาหาร",'size->"60",'maxlength->"50",'required->"required" ,'class->"form-control")
+                        @inputText(myForm1("amount_ifoods"),'_label->"ชื่อชนิดอาหารสัตว์ ",'placeholder->"กรอกข้อมูลจำนวนอาหารที่รับมา ",'size->"60",'maxlength->"50",'required->"required" ,'class->"form-control")
+                        @inputText(myForm1("price_ifoods"),'_label->"ชื่อชนิดอาหารสัตว์ ",'placeholder->"กรอกข้อมูลราคาของอาหาร",'size->"60",'maxlength->"50",'required->"required" ,'class->"form-control")
+                        @inputDate(myForm1("date_ifoods"),'_label->"วันที่หมดอายุ",'rows->"10",'cols->"40",'placeholder->"วันที่หมดอายุ",'required->"required",'class->"form-control")
+                        @inputFile(myForm1("picture"),'_label->"รูปภาพประกอบ",'class->"form-control")
+                        <input type="submit" value="บันทึก" class="btn-success btn-lg">
+                        <input type="reset" value="ลบข้อมูล" class="btn-danger btn-lg">
+                        }</table>
+
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

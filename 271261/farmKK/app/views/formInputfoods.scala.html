@@ -1,0 +1,57 @@
+@(myForm1: Form[Inputfood], myList: List[Foods])
+@import helper._;
+<html>
+    <head>
+        <title>รับอาหาร</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+
+                    <ol class="breadcrumb">
+                        <li><a href="/">หน้าหลัก</a></li>
+                        <li><a href="/showinputfoods">ข้อมูลรับอาหาร</a></li>
+                        <li class="active">เพิ่มอาหารสัตว์</li>
+
+                    </ol>
+                    <h1>รับอาหารสัตว์</h1>
+                    <p style="color: red;">
+                        **เพิ่มข้อมูลนำเข้า / รับอาหารสัตว์ได้ที่แบบฟอร์มนี้ ให้ทำการเพิ่มหลังจากนำเข้าอาหารแล้ว</p>
+                    <div class="row">
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+                                <span class="glyphicon glyphicon-plus"></span>  Form Add
+                            </div>
+                            <div class="panel-body">
+                            @helper.form(action = routes.inputfoodsController.inputmyfoods(), 'enctype -> "multipart/form-data") {
+                                <div class="col-md-6">
+                                    @inputText(myForm1("id_ifoods"), '_label -> "ชื่อร้านค้าที่รับอาหารมา", 'size -> "60", 'placeholder -> "กรอกข้อมูลชื่อร้านอาหารที่รับมา", 'maxlength -> "50", 'required -> "required", 'class -> "form-control")
+                                    @inputRadioGroup(myForm1("inputfoods.id"), options = myList.map(fac => fac.getId -> fac.getAnimalfoods_name), '_label -> "เลือกชนิดของอาหาร")
+                                    @inputText(myForm1("name_ifoods"), '_label -> "ชื่ออาหาร", 'placeholder -> "กรอกข้อมูลชื่ออาหาร", 'size -> "60", 'maxlength -> "50",  'class -> "form-control")
+                                    @inputText(myForm1("amount_ifoods"), '_label -> "จำนวน", 'placeholder -> "กิโลกรัม ", 'size -> "60", 'maxlength -> "50", 'required -> "required", 'class -> "form-control")
+                                </div>
+                                <div class="col-md-6">
+                                    @inputText(myForm1("price_ifoods"), '_label -> "ราคา", 'placeholder -> "กรอกข้อมูลราคาของอาหาร", 'size -> "60", 'maxlength -> "50", 'required -> "required", 'class -> "form-control")
+                                    @inputDate(myForm1("date_ifoods"), '_label -> "วันที่หมดอายุ", 'rows -> "10", 'cols -> "40", 'placeholder -> "วันที่หมดอายุ", 'required -> "required", 'class -> "form-control")
+                                    @inputFile(myForm1("picture"), '_label -> "รูปภาพประกอบ", 'class -> "form-control")
+
+                                </div>
+
+                            </div>
+                            <center>
+
+                                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-save"></span>
+                                    บันทึก</button>
+                                <button type="reset" class="btn btn-danger "><span class="glyphicon glyphicon-trash"></span>
+                                    ลบข้อมูล</button>
+
+                            </center>
+                        </div>}
+
+                    </div>
+
+                    </div>
+                </div>
+
+    </body>
+</html>

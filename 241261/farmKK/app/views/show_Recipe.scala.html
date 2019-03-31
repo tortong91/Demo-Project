@@ -1,0 +1,33 @@
+@(myList:List[Recipe])
+<html>
+    <head>
+        <title>
+            อาหารโคขุน
+        </title>
+        <link href="/assets/images/cow.png" type="image/png" rel="icon">
+        <link href="/assets/stylesheets/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+        <link href="/assets/stylesheets/bootstrap4/css/bootstrap.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+
+            <table class="table">
+                <tr>
+                    <th>รหัสสูตร</th>
+                    <th>วันที่จัดสูตร</th>
+                    <th>รายละเอียดสูตร</th>
+                    <th>ชื่ออาหาร</th>
+
+                </tr>
+                @for(s<-myList){ <tr>
+                    <td>@s.getRid</td>
+                    <td>@s.getRecipe1</td>
+                    <td>@s.getRecipe2</td>
+                    <td>@s.getInputfood.getName_ifoods</td>
+                </tr> }
+            </table>
+
+
+
+
+    </body>
+</html>

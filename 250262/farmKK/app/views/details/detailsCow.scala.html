@@ -1,0 +1,30 @@
+@(show:Cows)
+<html>
+    <head>
+        <title>รายละเอียดการรับโคขุนเข้าฟาร์ม</title>
+        <link href="/assets/images/cow.png" type="image/png" rel="icon">
+        <link href="/assets/stylesheets/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <div class="panel panel-default">
+            <div class="panel-body">
+
+        <table class="table" align="center">
+            <tbody>  <tr><th colspan="2"><h3>รายละเอียดประจำตัวโคขุน</h3></th></tr>
+
+
+            <tr><td colspan="2"><center><img src="/assets/images/Piccow/@show.getPicture" class="img-thumbnail" width="400px" height="auto" align="center" ></center><br><br></td></tr>
+                  <tr>  <br><br><td>รหัส :</td><td>@show.getCow_id</td></tr>
+                <tr><td>น้ำหนัก :</td><td>@show.getWeight</td></tr>
+                <tr><td>ส่วนสูง :</td><td>@show.getHeight</td></tr>
+                <tr><td>ลักษณะสีผิว :</td><td>@show.getColor</td></tr>
+                <tr>     <td>เพศ :</td><td>@show.getSex</td></tr>
+                    <td>นำเข้าเมื่อ :</td><td>@show.getStatus</td>
+<tr>                    <td colspan="2"><center><input type="submit"  value="Print"> </center></td>
+                </tr>
+            </tbody>
+        </table>
+            </div>
+        </div>
+    </body>
+</html>

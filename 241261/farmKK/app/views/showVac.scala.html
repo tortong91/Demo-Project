@@ -1,0 +1,86 @@
+@(show: List[Vacs],myForm:Form[Vacs])
+@import helper._;
+<div>
+    <head>
+        <title>
+            ระบบจัดการข้อมูลวัคซีน
+        </title>
+
+    </head>
+    <body style="margin: 0 auto;" >
+    <div class="container">
+        <!---->
+
+        <div class="row">
+            <div class="col-md-11">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+
+                    <ol class="breadcrumb">
+                    <li><a href="/">หน้าหลัก</a></li>
+                    <li><a href="/showvac">ข้อมูลวัคซีน</a></li>
+                    <li class="active">เพิ่มวัคซีน</li>
+                </ol>
+                <h1>เพิ่มข้อมูลวัคซีน</h1>
+                <p style="color: red;">**กรอกข้อมูลนำเข้าวัคซีน</p>
+                @if(flash.containsKey("Errorvac")){
+                    <div class="alert alert-danger">
+                        <strong>เกิดข้อผิดพลาด</strong>@flash.get("Errorvac").
+                    </div>
+                }
+                @helper.form(action = routes.vacController.input() ,'enctype->"multipart/form-data"){
+                    @inputText(myForm("name"),'_label->"ชื่อวัคซีน",'size->"60",'maxlength->"50",'required->"required" ,'class->"form-control",'placeholder->"กรอกชื่อยา")
+                    @textarea(myForm("pr"),'_label->"สรรพคุณทางยา",'size->"210",'maxlength->"200",'required->"required",'class->"form-control",'placeholder->"กรอกสรรพคุณที่ได้จากวัคซีน")
+                    @inputFile(myForm("picture"),'_label->"รูปภาพประกอบ",'class->"form-control")
+                    <input type="submit" value="บันทึก" class="btn-success">
+                    <input type="reset" value="ลบข้อมูล" class="btn-danger">
+                    }
+                </div>
+        </div>
+            </div>
+        </div>
+        <!--\\-->
+        <div class="row">
+            <div class="col-md-11">
+                <div>
+
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ชื่อวัคซีน</th>
+                            <th>สรรพคุณทางยา</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @for(s <- show) {
+                        <tr>
+                            <td>@s.getId</td>
+                            <td>@s.getName</td>
+                            <td>@s.getPr</td>
+                            <td>
+                                <img src="/assets/images/PicVac/@s.getPicture" width="100px">
+
+                            </td>
+                            <td>
+                                <a href="/edit/@s.getId" style="color: blue;" width="30px">
+                                    <span class="glyphicon glyphicon-edit"></span></a>
+
+                                <a href="/deletevac/@s.getId" style="color: blue;" onclick="return confirm('Delete')">
+                                    <span class="glyphicon glyphicon-remove" style="color: red;"></span></a>
+                            </td>
+                        </tr>
+                    }
+            </tbody>
+            </table>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
